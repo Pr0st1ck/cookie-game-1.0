@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<style type="text/css">
+		body{
+			background: url(KIT.jpg) ;
+			background-size: 100% 100%;
+			height: 960px;
+		}
+		.prop {
+		position: absolute;
+		height: 300px;
+		width: 300px;
+		background: url(duh.webp);
+		background-size: 100% 100%;
+		}
+
+		.krot{
+		width: 100px;
+		height: 150px;
+		position: absolute;
+		}
+</style>
+</head>
+<body>
+
+<!-- дивы норы чтобы появится -->
+<div>SCORE: <span class="score">0</span> </div>
+<div class="prop first" style="top: 400px; left: 300px"></div>
+<div class="prop" style="top: 400px; left: 700px"></div>
+<div class="prop" style="top: 400px; left: 1100px"></div>
+
+
+
+
+<script type="text/javascript">
+	let firstNora = document.querySelector(".first")
+
+	let score = document.querySelector(".score")
+	let points = 0
+
+	
+
+	let getRandom = function(nam){
+		let rand = Math.random() * nam
+		let round = Math.round(rand)
+
+			return round
+	}
+
+	let left = [395, 795, 1195]
+	let name = ["good", "bad"]
+
+	let spawnerkrot = function(){
+		let krot = document.createElement('div')
+		document.body.appendChild(krot)
+		krot.classList.add("krot")
+
+		firstNora.before(krot)
+
+		krot.style.top = "400px"
+		krot.style.transition = "1s"
+		krot.style.left = left[getRandom(2)] + "px"
+		krot.name = name[getRandom(1)]
+
+		if(krot.name == "good"){
+			krot.style.background = "url(cookie.jpg)"
+			krot.style.backgroundSize = "100% 100%"
+		} else {
+			krot.style.background = "url(hru.jpg)"
+			krot.style.backgroundSize = "100% 100%"
+		}
+
+		let showkrot = function(){
+			krot.style.top = "250px"
+		}
+
+		setTimeout(showkrot, 1000)
+
+		let hide = function(){
+			krot.style.top = "400px"
+		}
+
+		setTimeout(hide, 2000)
+
+		krot.onclick = function(){
+			if (krot.name == "bad"){
+				points = points - 1
+				score.innerHTML = points
+				hide()
+			} else {
+				points = points + 1
+				score.innerHTML = points
+				hide()
+			}
+		}
+	}
+
+	let timer = function(){
+		if(points >= 10){
+			alert("you win!")
+		}else if (points < 10){
+			alert("you lose 0!")
+		}
+	}
+setTimeout(timer, 5000)
+setInterval(spawnerkrot, 1000)
+
+
+
+
+</script>
+	</body>
+</html>
